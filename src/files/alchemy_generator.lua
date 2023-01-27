@@ -1,0 +1,5 @@
+AlchemyGenerator = {}
+
+return {
+    AlchemyGenerator = AlchemyGenerator
+}

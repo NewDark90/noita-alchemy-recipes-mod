@@ -1,6 +1,6 @@
-local mod_name = "alchemy_recipes_test";
-
-local constants = dofile_once("/mods/" .. mod_name .. "/files/constants.lua")
+GamePrint("alchemy")
+local constants = dofile_once(GLOBAL.files_path .. "/constants.lua")
+GamePrint("const")
 
 local function hax_prng_next(v)
     local hi = math.floor(v / 127773.0)
