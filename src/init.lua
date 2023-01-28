@@ -10,6 +10,5 @@ function OnWorldPostUpdate()
 end
 
 function OnPlayerSpawned( player_entity )
-    GamePrint("spawned")
-  dofile_once(GLOBAL.files_path .. "/alchemy.lua")
+    dofile_once(GLOBAL.files_path .. "/alchemy.lua")
 end

@@ -1,14 +1,13 @@
-NollaPrng = {
-    seed = 0,
-    seed_base = 23456789 + 1 + 11 * 11
-};
+local NollaPrng = {}
+NollaPrng.__index = NollaPrng
 
-function NollaPrng:new(seed, seed_base)
-    if seed_base ~= nil then
-        self.seed_base = seed_base
-    end
-    
-    self.seed = seed + self.seed_base
+function NollaPrng:new(seed)
+    local self = setmetatable({}, NollaPrng)
+
+    self.seed = seed
+
+    print("NollaPrng", self.seed)
+    return self
 end
 
 function NollaPrng:next()
@@ -19,9 +18,8 @@ function NollaPrng:next()
     if self.seed  <= 0 then
         self.seed = self.seed + 2147483647
     end
+    print("next", self.seed)
     return self.seed
 end
 
-return {
-    NollaPrng = NollaPrng
-}
+return NollaPrng
