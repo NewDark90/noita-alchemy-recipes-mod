@@ -1,1 +1,4 @@
 copy.ps1
+.env
+node_modules
+dist

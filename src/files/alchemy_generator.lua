@@ -1,8 +1,10 @@
-local constants = dofile_once(GLOBAL.files_path .. "/constants.lua")
-local NollaPrng = dofile_once(GLOBAL.files_path .. "/nolla_prng.lua")
+-- local NollaPrng = dofile_once(GLOBAL.files_path .. "/nolla_prng.lua")
+-- local Material = dofile_once(GLOBAL.files_path .. "/material.lua")
+-- local MaterialCombo = dofile_once(GLOBAL.files_path .. "/material_combo.lua")
 
--- local constants = require "constants"
--- local NollaPrng = require "nolla_prng"
+local NollaPrng = require "nolla_prng"
+local Material = require "material"
+local MaterialCombo = require "material_combo"
 
 local AlchemyGenerator = {}
 AlchemyGenerator.__index = AlchemyGenerator
@@ -42,21 +44,20 @@ function AlchemyGenerator:random_material(mats)
 end
 
 function AlchemyGenerator:random_recipe()
-    local liqs = constants.get_liquids()
-    local orgs = constants.get_solids()
-    local m1, m2, m3, m4 = "?", "?", "?", "?"
-    m1 = self:random_material(liqs)
-    m2 = self:random_material(liqs)
-    m3 = self:random_material(liqs)
-    m4 = self:random_material(orgs)
-    local combo = { m1, m2, m3, m4 }
+    local combo = { 
+        self:random_material(Material.get_liquids()), 
+        self:random_material(Material.get_liquids()), 
+        self:random_material(Material.get_liquids()),
+        self:random_material(Material.get_solids()) 
+    }
 
     local rand_state = self.prng:next()
     local prob = 10 + math.floor((rand_state / 2 ^ 31) * 91)
     rand_state = self.prng:next()
 
     self.shuffle(combo, self.seed)
-    return { combo[1], combo[2], combo[3] }, prob
+
+    return MaterialCombo:new(combo[1], combo[2], combo[3], prob)
 end
 
 function AlchemyGenerator:get_alchemy()
@@ -64,11 +65,18 @@ function AlchemyGenerator:get_alchemy()
         self.prng:next()
     end
 
-    local lc_combo, ap_combo = { "?" }, { "?" }
-    lc_combo, lc_prob = self:random_recipe()
-    ap_combo, ap_prob = self:random_recipe()
+    -- magic_liquid_hp_regeneration_unstable
+    -- (l)ively (c)oncoction
+    local lc_combo = self:random_recipe()
 
-    return lc_combo, ap_combo, lc_prob, ap_prob
+    -- midas_precursor 
+    -- (a)lchemic (p)recursor
+    local ap_combo = self:random_recipe()
+
+    return {
+        lc_combo = lc_combo, 
+        ap_combo = ap_combo
+    }
 end
 
 return AlchemyGenerator
