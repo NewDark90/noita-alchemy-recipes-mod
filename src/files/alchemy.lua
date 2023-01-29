@@ -1,9 +1,5 @@
--- local AlchemyGenerator = dofile_once(GLOBAL.files_path .. "/alchemy_generator.lua")
--- local AlchemyGui = dofile_once(GLOBAL.files_path .. "/alchemy_gui.lua") 
-
 local AlchemyGenerator = require "alchemy_generator"
 local AlchemyGui = require "alchemy_gui"
-
 
 local alchemy_generator = AlchemyGenerator:new()
 local alchemy_combos = alchemy_generator:get_alchemy()

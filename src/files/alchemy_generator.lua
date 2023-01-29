@@ -1,7 +1,3 @@
--- local NollaPrng = dofile_once(GLOBAL.files_path .. "/nolla_prng.lua")
--- local Material = dofile_once(GLOBAL.files_path .. "/material.lua")
--- local MaterialCombo = dofile_once(GLOBAL.files_path .. "/material_combo.lua")
-
 local NollaPrng = require "nolla_prng"
 local Material = require "material"
 local MaterialCombo = require "material_combo"

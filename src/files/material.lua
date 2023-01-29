@@ -1,6 +1,3 @@
-
--- local util = dofile_once(GLOBAL.files_path .. "/util.lua")
-
 local util = require "util"
 
 local liquid_strings = {
