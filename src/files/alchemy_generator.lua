@@ -8,19 +8,18 @@ local AlchemyGenerator = {}
 AlchemyGenerator.__index = AlchemyGenerator
 
 function AlchemyGenerator:new() 
-    self = setmetatable(self or {}, AlchemyGenerator)
+    self = self or {}
+    setmetatable(self, AlchemyGenerator)
 
     self.seed = tonumber(StatsGetValue("world_seed"))
     self.initial_rand_state = math.floor(self.seed * 0.17127000 + 1323.59030000)
     self.prng = NollaPrng:new(self.initial_rand_state)
 
-    --print("AlchemyGenerator", self)
-
     return self
 end
 
 function AlchemyGenerator.shuffle(arr, seed)
-    local suffle_prng = NollaPrng:new(math.floor(seed / 2) + 0x30f6, 0)
+    local suffle_prng = NollaPrng:new(math.floor(seed / 2) + 0x30f6)
     local rand_state = suffle_prng:next()
     for i = #arr, 1, -1 do
         rand_state = suffle_prng:next()

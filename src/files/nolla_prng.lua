@@ -2,7 +2,8 @@ local NollaPrng = {}
 NollaPrng.__index = NollaPrng
 
 function NollaPrng:new(seed)
-    local self = setmetatable({}, NollaPrng)
+    self = self or {}
+    setmetatable(self, NollaPrng)
 
     self.seed = seed
 
