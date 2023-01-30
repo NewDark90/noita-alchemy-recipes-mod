@@ -17,8 +17,8 @@ local AlchemyGui = require "alchemy_gui"
     const options = {
         files: 'dist/**/*.lua',
 
-        from: /local\s+(?<var>[A-Za-z0-9_]+)\s*=\s*require\s*"(?<req>[A-Za-z0-9_]+)"\s*/g, // string or regex
-        to: 'local $1 = dofile_once(GLOBAL.files_path .. "$2.lua")\r\n',
+        from: /local\s+(?<var>[A-Za-z0-9_]+)\s*=\s*require\s*"(?<req>[A-Za-z0-9_]+)"[ ]*/g, // string or regex
+        to: 'local $1 = dofile_once(GLOBAL.files_path .. "/$2.lua")',
 
         // See more: https://www.npmjs.com/package/glob
         optionsForFiles: { // default
