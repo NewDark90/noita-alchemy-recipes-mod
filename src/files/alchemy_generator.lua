@@ -5,19 +5,19 @@ local MaterialCombo = require "material_combo"
 local AlchemyGenerator = {}
 AlchemyGenerator.__index = AlchemyGenerator
 
-function AlchemyGenerator:new() 
-    self = self or {}
+function AlchemyGenerator.new() 
+    local self = {}
     setmetatable(self, AlchemyGenerator)
 
     self.seed = tonumber(StatsGetValue("world_seed"))
     self.initial_rand_state = math.floor(self.seed * 0.17127000 + 1323.59030000)
-    self.prng = NollaPrng:new(self.initial_rand_state)
+    self.prng = NollaPrng.new(self.initial_rand_state)
 
     return self
 end
 
 function AlchemyGenerator.shuffle(arr, seed)
-    local suffle_prng = NollaPrng:new(math.floor(seed / 2) + 0x30f6)
+    local suffle_prng = NollaPrng.new(math.floor(seed / 2) + 0x30f6)
     local rand_state = suffle_prng:next()
     for i = #arr, 1, -1 do
         rand_state = suffle_prng:next()
@@ -40,11 +40,13 @@ function AlchemyGenerator:random_material(mats)
 end
 
 function AlchemyGenerator:random_recipe()
+    local liquids = Material.get_liquids()
+    local solids = Material.get_solids()
     local combo = { 
-        self:random_material(Material.get_liquids()), 
-        self:random_material(Material.get_liquids()), 
-        self:random_material(Material.get_liquids()),
-        self:random_material(Material.get_solids()) 
+        self:random_material(liquids), 
+        self:random_material(liquids), 
+        self:random_material(liquids),
+        self:random_material(solids) 
     }
 
     local rand_state = self.prng:next()
@@ -53,7 +55,7 @@ function AlchemyGenerator:random_recipe()
 
     self.shuffle(combo, self.seed)
 
-    return MaterialCombo:new(combo[1], combo[2], combo[3], prob)
+    return MaterialCombo.new(combo[1], combo[2], combo[3], prob)
 end
 
 function AlchemyGenerator:get_alchemy()

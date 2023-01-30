@@ -1,9 +1,9 @@
 local AlchemyGui = {}
 AlchemyGui.__index = AlchemyGui
 
-function AlchemyGui:new(alchemy_combo)
-    self = self or {}
-    self = setmetatable(self, AlchemyGui)
+function AlchemyGui.new(alchemy_combo)
+    local self = {}
+    setmetatable(self, AlchemyGui)
 
     self.is_open = true
     self.is_localized = true

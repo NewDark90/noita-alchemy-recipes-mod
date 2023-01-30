@@ -8,8 +8,8 @@ MaterialCombo.__index = MaterialCombo
 ---@param mat3 Material
 ---@param probability number
 ---@return table
-function MaterialCombo:new(mat1, mat2, mat3, probability)
-    self = self or {}
+function MaterialCombo.new(mat1, mat2, mat3, probability)
+    local self = {}
     setmetatable(self, MaterialCombo)
 
     self.mat1 = mat1

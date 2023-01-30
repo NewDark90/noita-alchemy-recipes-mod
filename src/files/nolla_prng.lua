@@ -1,8 +1,8 @@
 local NollaPrng = {}
 NollaPrng.__index = NollaPrng
 
-function NollaPrng:new(seed)
-    self = self or {}
+function NollaPrng.new(seed)
+    local self = {}
     setmetatable(self, NollaPrng)
 
     self.seed = seed

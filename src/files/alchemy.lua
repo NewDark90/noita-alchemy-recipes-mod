@@ -1,9 +1,9 @@
 local AlchemyGenerator = require "alchemy_generator"
 local AlchemyGui = require "alchemy_gui"
 
-local alchemy_generator = AlchemyGenerator:new()
+local alchemy_generator = AlchemyGenerator.new()
 local alchemy_combos = alchemy_generator:get_alchemy()
-local alchemy_gui = AlchemyGui:new(alchemy_combos)
+local alchemy_gui = AlchemyGui.new(alchemy_combos)
 
 function _alchemy_main()
     if (not alchemy_gui.gui) or (not alchemy_gui.run) then return end
