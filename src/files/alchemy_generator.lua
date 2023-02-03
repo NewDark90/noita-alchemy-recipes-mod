@@ -65,15 +65,15 @@ function AlchemyGenerator:get_alchemy()
 
     -- magic_liquid_hp_regeneration_unstable
     -- (l)ively (c)oncoction
-    local lc_combo = self:random_recipe()
+    local lc_recipe = self:random_recipe()
 
     -- midas_precursor 
     -- (a)lchemic (p)recursor
-    local ap_combo = self:random_recipe()
+    local ap_recipe = self:random_recipe()
 
     return {
-        lc_combo = lc_combo, 
-        ap_combo = ap_combo
+        lc_recipe = lc_recipe, 
+        ap_recipe = ap_recipe
     }
 end
 

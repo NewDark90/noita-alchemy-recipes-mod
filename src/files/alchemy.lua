@@ -1,15 +1,10 @@
-local AlchemyGenerator = require "alchemy_generator"
-local AlchemyGui = require "alchemy_gui"
 
-local alchemy_generator = AlchemyGenerator.new()
-local alchemy_combos = alchemy_generator:get_alchemy()
-local alchemy_gui = AlchemyGui.new(alchemy_combos)
+local AlchemyGui = require "alchemy_gui"
+local ModSettings = require "mod_settings"
+
+GLOBAL.mod_settings = ModSettings.new(GLOBAL.mod_name)
+GLOBAL.alchemy_gui = AlchemyGui.new()
 
 function _alchemy_main()
-    if (not alchemy_gui.gui) or (not alchemy_gui.run) then return end
-    GuiStartFrame(alchemy_gui.gui)
-    local happy, errstr = pcall(function() alchemy_gui:run() end)
-    if not happy then
-        print("Gui error: " .. errstr)
-    end
+    GLOBAL.alchemy_gui:init()
 end
