@@ -8,10 +8,11 @@ MaterialCombo.__index = MaterialCombo
 ---@param mat3 Material
 ---@param probability number
 ---@return table
-function MaterialCombo.new(mat1, mat2, mat3, probability)
+function MaterialCombo.new(recipe_name, mat1, mat2, mat3, probability)
     local self = {}
     setmetatable(self, MaterialCombo)
 
+    self.recipe_name = recipe_name
     self.mat1 = mat1
     self.mat2 = mat2
     self.mat3 = mat3
@@ -24,6 +25,7 @@ end
 
 function MaterialCombo:get_display()
     local ret = {
+        recipe_name = self.recipe_name,
         key = table.concat({
             "[" .. self.mat1.name .. "]",
             "[" .. self.mat2.name .. "]",

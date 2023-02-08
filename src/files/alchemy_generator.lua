@@ -39,7 +39,7 @@ function AlchemyGenerator:random_material(mats)
     end
 end
 
-function AlchemyGenerator:random_recipe()
+function AlchemyGenerator:random_recipe(recipe_name)
     local liquids = Material.get_liquids()
     local solids = Material.get_solids()
     local combo = { 
@@ -55,7 +55,7 @@ function AlchemyGenerator:random_recipe()
 
     self.shuffle(combo, self.seed)
 
-    return MaterialCombo.new(combo[1], combo[2], combo[3], prob)
+    return MaterialCombo.new(recipe_name, combo[1], combo[2], combo[3], prob)
 end
 
 function AlchemyGenerator:get_alchemy()
@@ -65,11 +65,11 @@ function AlchemyGenerator:get_alchemy()
 
     -- magic_liquid_hp_regeneration_unstable
     -- (l)ively (c)oncoction
-    local lc_recipe = self:random_recipe()
+    local lc_recipe = self:random_recipe("LC")
 
     -- midas_precursor 
     -- (a)lchemic (p)recursor
-    local ap_recipe = self:random_recipe()
+    local ap_recipe = self:random_recipe("AP")
 
     return {
         lc_recipe = lc_recipe, 

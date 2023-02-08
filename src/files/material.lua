@@ -34,7 +34,7 @@ function Material.new(name)
 
     self.name = name
     self.id = CellFactory_GetType(name)
-    self.localized_name = self:localize_material()
+    self.localized_name = self:localize_material():lower()
 
     -- print("Material: ", self.name, self.id, self.localized_name)
 

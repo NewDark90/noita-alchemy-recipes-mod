@@ -18,13 +18,13 @@ local gui_ids = {
     recipe_spacer = next_id(),
 }
 
-function AlchemyGui.new()
+function AlchemyGui.new(mod_settings)
     local self = {}
     setmetatable(self, AlchemyGui)
 
+    self.mod_settings = mod_settings
     self.alchemy_generator = AlchemyGenerator.new()
     self.is_open = true
-    self.is_localized = true
     self.alchemy_recipes = self.alchemy_generator:get_alchemy()
     self.gui = GuiCreate()
 
@@ -40,44 +40,45 @@ function AlchemyGui:init()
     end
 end
 
-
 function AlchemyGui:run()
-    local is_vertical = GLOBAL.mod_settings.layout_type == "vertical" 
+    local is_vertical = self.mod_settings.layout_type == "vertical" 
     local gui_func = (
         is_vertical and 
         GuiLayoutBeginVertical or 
         GuiLayoutBeginHorizontal 
     )
-    gui_func(self.gui, GLOBAL.mod_settings.layout_x, GLOBAL.mod_settings.layout_y)
+    gui_func(self.gui, self.mod_settings.layout_x, self.mod_settings.layout_y)
 
-    --GuiOptionsAdd(self.gui, GUI_OPTION.)
-    if GuiButton(self.gui, gui_ids.open_close, 1, 1, (self.is_open and "[x]" or "[>]")) then
+    if self.mod_settings.toggle_button_position == "start" then
+        self:toggle_button()
+    end
+    
+    if self.is_open then
+        self:recipe_display(gui_ids.lively_concoction, self.mod_settings.lc_rgba, self.alchemy_recipes.lc_recipe.display)
+        if not is_vertical then 
+            GuiText(self.gui, 0, 0, "|")
+        end
+        self:recipe_display(gui_ids.alchemic_precursor, self.mod_settings.ap_rgba, self.alchemy_recipes.ap_recipe.display)
+    end
+
+    if self.mod_settings.toggle_button_position == "end" then
+        self:toggle_button()
+    end
+
+    GuiLayoutEnd(self.gui)
+end
+
+function AlchemyGui:toggle_button() 
+    local clicked = GuiButton(self.gui, gui_ids.open_close, 1, 1, (self.is_open and "[x]" or "[>]")) 
+    if clicked then
         self.is_open = not self.is_open
     end
-    if self.is_open then
-        local lc_text = "LC: " .. (
-            self.is_localized and 
-            self.alchemy_recipes.lc_recipe.display.localized or 
-            self.alchemy_recipes.lc_recipe.display.key
-        )
-        local ap_text = "AP: " .. (
-            self.is_localized and 
-            self.alchemy_recipes.ap_recipe.display.localized or 
-            self.alchemy_recipes.ap_recipe.display.key
-        )
+    return clicked
+end
 
-        --GuiLayoutBeginVertical(self.gui, 0, 0)
-        local lc_clicked = GuiButton(self.gui, gui_ids.lively_concoction, 1, 1, lc_text)
-        if not is_vertical then 
-            GuiText(self.gui, 0, 0, " | ")
-        end
-        local ap_clicked = GuiButton(self.gui, gui_ids.alchemic_precursor, 1, 1, ap_text)
-        --GuiLayoutEnd(self.gui)
-        if lc_clicked or ap_clicked then
-            self.is_localized = not self.is_localized
-        end
-    end
-    GuiLayoutEnd(self.gui)
+function AlchemyGui:recipe_display(id, rgba, display) 
+    GuiColorSetForNextWidget(self.gui, rgba.r, rgba.g, rgba.b, rgba.a)
+    GuiText(self.gui, 1, 1, display.recipe_name .. ": " .. (self.mod_settings.is_localized and display.localized or display.key))
 end
 
 return AlchemyGui
