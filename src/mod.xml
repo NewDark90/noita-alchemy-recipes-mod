@@ -1,5 +1,10 @@
 <Mod
-	name="Alchemy Recipes"
-	description="Shows alchemy recipes on-screen."
+	name="Alchemy Recipe Display"
+	description="Displays a UI element that shows the alchemy recipes (Lively Concoction and Alchemic Precursor) for your given seed on-screen. This display is highly customizable in the mod settings."
+    tags="graphics,quality of life,alchemy,tweaks,cheats"
+    dont_upload_folders=""
+    dont_upload_files=""
 >
 </Mod>
+
+	

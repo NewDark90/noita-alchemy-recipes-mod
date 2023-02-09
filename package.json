@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "copy": "node scripts/copy.js",
-    "all": "npm run build && npm run copy"
+    "local_publish": "npm run build && npm run copy",
+    "publish": "npm run local_publish && powershell.exe .\\scripts\\publish.ps1"
   },
   "repository": {
     "type": "git",

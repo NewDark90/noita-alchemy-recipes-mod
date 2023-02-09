@@ -1,5 +1,5 @@
 
-local mod_name = "alchemy_recipes_test"
+local mod_name = "alchemy_recipes_display"
 
 GLOBAL = {
     mod_name = mod_name,
