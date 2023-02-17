@@ -27,9 +27,9 @@ function MaterialCombo:get_display()
     local ret = {
         recipe_name = self.recipe_name,
         key = table.concat({
-            "[" .. self.mat1.name .. "]",
-            "[" .. self.mat2.name .. "]",
-            "[" .. self.mat3.name .. "]"
+            self.mat1.name,
+            self.mat2.name,
+            self.mat3.name
         }, ", "),
         localized = table.concat({
             self.mat1.localized_name,

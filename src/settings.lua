@@ -13,14 +13,14 @@ dofile("data/scripts/lib/mod_settings.lua") -- see this file for documentation o
 -- ModSettingSetNextValue() will set the buffered value, that will later become visible via ModSettingGet(), unless the setting scope is MOD_SETTING_SCOPE_RUNTIME.
 
 local mod_id = "alchemy_recipes_display" -- This should match the name of your mod's folder.
-mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value. 
+mod_settings_version = 2 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value. 
 mod_settings = 
 {
     {
 		id = "LAYOUT_DIRECTION",
 		ui_name = "Layout Direction",
         ui_description = "How the layout of the recipes is rendered on the screen.",
-        value_default = "vertical",
+        value_default = "horizontal",
         values = { {"vertical","Vertical"}, {"horizontal","Horizontal"} },
         scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
@@ -28,7 +28,7 @@ mod_settings =
 		id = "LAYOUT_X_POS",
 		ui_name = "Layout - X Position",
         ui_description = "The starting horizontal point of the layout.",
-        value_default = 1,
+        value_default = 4,
         value_min = 0,
         value_max = 100,
         scope = MOD_SETTING_SCOPE_RUNTIME,
@@ -37,7 +37,7 @@ mod_settings =
 		id = "LAYOUT_Y_POS",
 		ui_name = "Layout - Y Position",
         ui_description = "The starting vertical point of the layout.",
-        value_default = 10,
+        value_default = 1,
         value_min = 0,
         value_max = 100,
         scope = MOD_SETTING_SCOPE_RUNTIME,
@@ -50,6 +50,13 @@ mod_settings =
         values = { {"start","Start"}, {"end","End"} },
         scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
+    {
+        id = "UI_RECIPE_LOCALIZED",
+        ui_name = "Friendly UI Name",
+        ui_description = "If turned on, localized name will be displayed. Otherwise the exact material key will be displayed. ",
+        value_default = true,
+        scope = MOD_SETTING_SCOPE_RUNTIME,
+    },
     {
         category_id = "UI_RECIPE_LC",
 		ui_name = "Lively Concoction UI Color",
@@ -120,13 +127,6 @@ mod_settings =
                 value_max = 100,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
-        },
-        {
-            id = "UI_RECIPE_LOCALIZED",
-            ui_name = "Friendly UI Name",
-            ui_description = "If turned on, localized name will be displayed. Otherwise the exact material key will be displayed. ",
-            value_default = true,
-            scope = MOD_SETTING_SCOPE_RUNTIME,
         },
     },
     --[[

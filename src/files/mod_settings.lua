@@ -8,9 +8,9 @@ function ModSettings.new(mod_name)
 
     self.mod_name = mod_name
     self.toggle_button_position = "start"
-    self.layout_type = "vertical"
+    self.layout_type = "horizontal"
     self.layout_x = 1
-    self.layout_y = 10
+    self.layout_y = 4
     self.lc_rgba = {
         r = 1,
         g = 1,
